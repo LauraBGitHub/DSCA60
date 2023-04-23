@@ -1,0 +1,47 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "grpc.project.Service02";
+option java_outer_classname = "Service02Impl";
+
+package Service02;
+service AccessControl {
+  // SET Security Profile (server streaming)
+  rpc SetSecurityProfile (SetSecurityProfileRequest) returns (stream SetSecurityProfileResponse) {}
+
+  // Verify PreApproval (unary)
+  rpc VerifyPreApproval (VerifyPreApprovalMsg) returns (VerifyPreApprovalResponse) {}
+
+  // Request 2FA (unary)
+  rpc RequestTwoFA (RequestTwoFAMsg) returns (RequestTwoFAResponse) {}
+}
+
+message SetSecurityProfileRequest {
+  string user_id = 1;
+  string security_level = 2;
+  bool secure_flag = 3;
+  string employment_type = 4;
+}
+
+message SetSecurityProfileResponse {
+  string user_id = 1;
+  string security_level = 2;
+  bool two_factor_auth = 3;
+  string date_set = 4;
+ 
+}
+
+message VerifyPreApprovalMsg{
+  string user_id = 1;
+}
+
+message VerifyPreApprovalResponse {
+  string result = 1;
+}
+
+message RequestTwoFAMsg {
+  string user_id = 1;
+}
+
+message RequestTwoFAResponse {
+  string result = 1;
+}

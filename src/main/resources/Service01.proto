@@ -1,0 +1,49 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "grpc.project.Service01";
+option java_outer_classname = "Service01Impl";
+
+package Service01;
+
+service SecurityRequestService {
+  // Method 1: RFID Request with Unary Streaming
+  rpc RequestRFID(stream RequestRFIDMsg) returns (ResponseAccess) {}
+
+  // Method 2: PIN Request with Client-side Streaming
+  rpc RequestDoorAccess(stream RequestDoorAccessMsg) returns (ResponseAccess) {}
+
+  // Method 3: Request Security Profile with Unary Streaming
+  rpc RequestSecurityProfile(RequestSecProfile) returns (SecurityProfile) {}
+}
+
+// Request for RFID Code
+message RequestRFIDMsg {
+  string code = 1;
+}
+
+// Request for DoorID and PIN
+message RequestDoorAccessMsg {
+  string door_id = 1;
+  string pin = 2;
+}
+
+// Response for RFID / Door Access requests
+message ResponseAccess {
+  string access_response = 1;
+}
+
+// Request for Security Profile
+message RequestSecProfile {
+  int32 userId = 1;
+}
+
+// Response for Security Profile
+message SecurityProfile {
+  string security_level = 1;
+  bool secure_flag = 2;
+  bool two_factor_auth = 3;
+  string employment_type = 4;
+  string access_date = 5;
+}
+
+

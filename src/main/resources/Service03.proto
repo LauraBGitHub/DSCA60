@@ -1,0 +1,30 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "grpc.project.Service03";
+option java_outer_classname = "Service03Impl";
+package Service03;
+service IncidentResponse {
+  // Block Access (unary)
+  rpc BlockAccess (BlockAccessMessage) returns (BlockAccessResponseMessage) {}
+
+  // Suggest Incident Response (bidirectional streaming)
+  rpc SuggestIncidentResponse (stream SuggestIncidentRequest) returns (stream SuggestIncidentResponseMsg) {}
+}
+
+message BlockAccessMessage {
+  string user_id = 1;
+  bool secure_flag = 2;
+}
+
+message BlockAccessResponseMessage {
+  string result = 1;
+}
+
+message SuggestIncidentRequest {
+  string access_fail_condition_trips = 1;
+}
+
+message SuggestIncidentResponseMsg {
+  string key_id = 1;
+  string response = 2;
+}
