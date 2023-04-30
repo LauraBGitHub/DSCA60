@@ -36,7 +36,6 @@ message VerifyPreApprovalMsg{
 
 message VerifyPreApprovalResponse {
   string result = 1;
-  bool secure_flag = 2;
 }
 
 message RequestTwoFAMsg {
