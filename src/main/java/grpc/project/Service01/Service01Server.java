@@ -69,8 +69,32 @@ public class Service01Server extends SecurityRequestServiceImplBase {
 	}
 	@Override
 	public StreamObserver<RequestDoorAccessMsg> requestDoorAccess(StreamObserver<ResponseAccess> responseObserver) {
-		// TODO Auto-generated method stub
-		return super.requestDoorAccess(responseObserver);
+		return new StreamObserver<RequestDoorAccessMsg>() {
+			String access;
+			String doorID = "D21" ; 
+			String pin = "723031"; 
+			@Override
+			public void onNext(RequestDoorAccessMsg value) {
+				String pinGiven = value.getPin(); 
+			if (pinGiven.length() != pin.length()) { 
+				access = "False"; 
+			}
+				
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onCompleted() {
+				// TODO Auto-generated method stub
+				
+			}
+		
+		}
 	}
 	@Override
 	public void requestSecurityProfile(RequestSecProfile request, StreamObserver<SecurityProfile> responseObserver) {
