@@ -56,6 +56,8 @@ public class Service02Server extends AccessControlImplBase{
 		//here we create the object that stores the date and we convert it into a string 
 		LocalDate myObj = LocalDate.now(); 
 	    date = myObj.toString(); 
+	    Service01Server profile = new Service01Server(); 
+	    profile.varClass(securityLevel, twoFactor, flag, employment, date);
 		
 		//sends data stream  
 		responseObserver.onNext(response.setUserId(userId).build());

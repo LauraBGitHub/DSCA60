@@ -9,11 +9,12 @@ import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 
 import grpc.project.Service01.SecurityRequestServiceGrpc.SecurityRequestServiceImplBase;
+import grpc.project.Service02.Service02Server;
 
 
+@SuppressWarnings("unused")
 public class Service01Server extends SecurityRequestServiceImplBase {
 
-	String userId; 
 	String securityLevel; 
 	boolean flag; 
 	boolean twoFactor; 
@@ -33,8 +34,7 @@ public class Service01Server extends SecurityRequestServiceImplBase {
     
     
     private String authorisationCode = "234DF501HF8373898900";
-    public void varClass(String var01, String var02, boolean var03, boolean var04, String var05, String var06) {
-    	var01 = userId; 
+    public void varClass( String var02, boolean var03, boolean var04, String var05, String var06) {
     	var02 = securityLevel; 
     	var03 = flag; 
     	var04 = twoFactor; 
@@ -74,7 +74,14 @@ public class Service01Server extends SecurityRequestServiceImplBase {
 	}
 	@Override
 	public void requestSecurityProfile(RequestSecProfile request, StreamObserver<SecurityProfile> responseObserver) {
-		
+		String userId = request.getUserId(); 
+		SecurityProfile response = SecurityProfile.newBuilder().setSecurityLevel(securityLevel)
+				.setSecureFlag(flag)
+				.setTwoFactorAuth(twoFactor)
+				.setEmploymentType(employment)
+				.setAccessDate(date).build(); 
+		responseObserver.onNext(response);
+		responseObserver.onCompleted(); 
 	}
 	
 	
