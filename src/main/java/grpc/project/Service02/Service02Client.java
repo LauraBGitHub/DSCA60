@@ -26,7 +26,8 @@ public class Service02Client {
 		//create the stubs
 		blockingStub = AccessControlGrpc.newBlockingStub(channel);
 		setProfile();
-		setApproval(); 
+		setApproval();
+		set2FA(); 
 		channel.shutdown();
 	 }
 	public static void setProfile() { 
