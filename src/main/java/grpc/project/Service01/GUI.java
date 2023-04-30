@@ -19,6 +19,7 @@ public class GUI {
 	   ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080).usePlaintext().build();
 	   blockingStub = SecurityRequestServiceGrpc.newBlockingStub(channel); 
 	   rfid(); 
+	   getProfile(); 
 	   channel.shutdown(); 
    }
    
@@ -32,11 +33,26 @@ public class GUI {
        ResponseAccess reponse = blockingStub.requestRFID(request); 
        System.out.println(reponse);
        } 
-       catch(StatusRuntimeException ex) {
-			// Print if any error/exception is generated.
-			System.out.println( ex.getMessage());
-			
-		}
-       
+       catch (StatusRuntimeException e) {
+		e.printStackTrace();
+       }  
+   }
+   public static void getProfile() { 
+	   JFrame f = new JFrame();
+       String user = JOptionPane.showInputDialog(f, "Enter Username");
+	   RequestSecProfile request = RequestSecProfile.newBuilder().setUserId(user).build(); 
+	   try {
+		   SecurityProfile response = blockingStub.requestSecurityProfile(request); 
+		   System.out.println("User: "+user);
+		   System.out.println("Level: "+response.getSecurityLevel());	
+		   System.out.println("Flag: "+response.getSecureFlag());
+		   System.out.println("2FA: "+response.getTwoFactorAuth());
+		   System.out.println("Type: "+response.getEmploymentType());
+		   System.out.println("Date: "+response.getAccessDate());
+		
+	   }
+	   catch (StatusRuntimeException e) {
+			e.printStackTrace();
+	       } 
    }
 } 
