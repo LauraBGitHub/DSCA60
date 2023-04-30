@@ -39,10 +39,28 @@ public class Service03Server extends IncidentResponseImplBase{
 	}
 
 	@Override
-	public StreamObserver<SuggestIncidentRequest> suggestIncidentResponse(
-			StreamObserver<SuggestIncidentResponseMsg> responseObserver) {
-		// TODO Auto-generated method stub
-		return super.suggestIncidentResponse(responseObserver);
+	public StreamObserver<SuggestIncidentRequest> suggestIncidentResponse(StreamObserver<SuggestIncidentResponseMsg> responseObserver) {
+		return new StreamObserver<SuggestIncidentRequest>() {
+
+			@Override
+			public void onNext(SuggestIncidentRequest value) {
+				StringBuilder input1 = new StringBuilder();  
+				
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onCompleted() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
 	}
 	
 }
