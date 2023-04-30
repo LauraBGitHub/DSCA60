@@ -4,21 +4,27 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
-import io.grpc.stub.StreamObserver; 
+import io.grpc.stub.StreamObserver;
+
+import java.util.Random;
 
 import javax.swing.*;
 
 import grpc.project.Service01.RequestRFIDMsg.Builder;
+import grpc.project.Service02.VerifyPreApprovalResponse;
 import grpc.project.Service01.SecurityRequestServiceGrpc;
 
 
 
 public class GUI {
    private static SecurityRequestServiceGrpc.SecurityRequestServiceBlockingStub blockingStub; 
-   public static void main (String args[]) { 
+   private static SecurityRequestServiceGrpc.SecurityRequestServiceStub asyncStub;
+   public static void main (String args[]) throws InterruptedException { 
 	   ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080).usePlaintext().build();
 	   blockingStub = SecurityRequestServiceGrpc.newBlockingStub(channel); 
+	   asyncStub = SecurityRequestServiceGrpc.newStub(channel);
 	   rfid(); 
+	   doorAccess(); 
 	   getProfile(); 
 	   channel.shutdown(); 
    }
@@ -55,4 +61,42 @@ public class GUI {
 			e.printStackTrace();
 	       } 
    }
+   public static void doorAccess() throws InterruptedException { 
+	   StreamObserver<ResponseAccess> responseObserver = new StreamObserver<ResponseAccess>() {
+
+		@Override
+		public void onNext(ResponseAccess value) {
+			System.out.println("Recieving Access: " + value.getAccessResponse());
+			
+		}
+
+		@Override
+		public void onError(Throwable t) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onCompleted() {
+			System.out.println("completed ");
+			
+		}
+		   
+	   }; 
+	   StreamObserver<RequestDoorAccessMsg> requestObserver = asyncStub.requestDoorAccess(responseObserver);
+	   try { 
+		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setDoorId("D21").build());
+		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setPin("743031").build());
+		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setPin("743031").build());
+		   System.out.println("SENDING MESSAGES");
+		   
+		   requestObserver.onCompleted();
+		   Thread.sleep(new Random().nextInt(1000) + 500);
+	   } 
+	   catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+   }
+
+
 } 

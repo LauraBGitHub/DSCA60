@@ -5,6 +5,7 @@ import io.grpc.ServerBuilder;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
+import java.util.logging.Logger;
 
 import java.io.IOException;
 
@@ -14,6 +15,7 @@ import grpc.project.Service02.Service02Server;
 
 @SuppressWarnings("unused")
 public class Service01Server extends SecurityRequestServiceImplBase {
+	private static final Logger logger = Logger.getLogger(Service01Server.class.getName());
 
 	String securityLevel; 
 	boolean flag; 
@@ -67,6 +69,8 @@ public class Service01Server extends SecurityRequestServiceImplBase {
          responseObserver.onNext(response);
  		 responseObserver.onCompleted(); 
 	}
+	
+	
 	@Override
 	public StreamObserver<RequestDoorAccessMsg> requestDoorAccess(StreamObserver<ResponseAccess> responseObserver) {
 		return new StreamObserver<RequestDoorAccessMsg>() {
@@ -76,25 +80,41 @@ public class Service01Server extends SecurityRequestServiceImplBase {
 			@Override
 			public void onNext(RequestDoorAccessMsg value) {
 				String pinGiven = value.getPin(); 
-			if (pinGiven.length() != pin.length()) { 
-				access = "False"; 
-			}
-				
+				if (pinGiven.length() != pin.length()) { 
+					access = "False"; 
+				}
+				else { 
+					int count = 0;
+					for(int i=0; i<pinGiven.length()-1 ; i++) {
+	                 if (pinGiven.charAt(i)!= pin.charAt(i)) {
+	                     count = count+1;
+	                 }
+	             }
+	             if (count == 0){
+	                 access = "True";
+	             }
+	             else {
+	                 access = "false";
+	             }
+					
+				}
+			
 			}
 
 			@Override
 			public void onError(Throwable t) {
-				// TODO Auto-generated method stub
-				
+				//
 			}
 
 			@Override
 			public void onCompleted() {
-				// TODO Auto-generated method stub
+				ResponseAccess response = ResponseAccess.newBuilder().setAccessResponse(access).build(); 
+				responseObserver.onNext(response);
+				responseObserver.onCompleted(); 
 				
 			}
+		}; 
 		
-		}
 	}
 	@Override
 	public void requestSecurityProfile(RequestSecProfile request, StreamObserver<SecurityProfile> responseObserver) {
