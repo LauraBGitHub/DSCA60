@@ -64,6 +64,12 @@ public class Service02Client {
 		VerifyPreApprovalResponse response = blockingStub.verifyPreApproval(request); 
 		System.out.println(userID + response.getResult());
 	}
+	public static void set2FA() { 
+		RequestTwoFAMsg request = RequestTwoFAMsg.newBuilder().setUserId("E2365651").build(); 
+		String userID = "E2365651  : "; 
+		RequestTwoFAResponse response = blockingStub.requestTwoFA(request); 
+		System.out.println(userID + response.getResult()); 
+	}
 
 }
 
