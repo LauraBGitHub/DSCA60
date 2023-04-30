@@ -72,7 +72,12 @@ public class Service02Server extends AccessControlImplBase{
 
 	@Override
 	public void requestTwoFA(RequestTwoFAMsg request, StreamObserver<RequestTwoFAResponse> responseObserver) {
-		
+		System.out.println("Requesting TwoFactor Authentication ... "); 
+		String userId = request.getUserId(); 
+		String result = "2FA Requested "; 
+		RequestTwoFAResponse reply = RequestTwoFAResponse.newBuilder().setResult(result).build(); 
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted(); 
 	}
 	
 }
