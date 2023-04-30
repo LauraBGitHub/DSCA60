@@ -34,7 +34,7 @@ public final class SecurityRequestServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "RequestRFID",
       requestType = grpc.project.Service01.RequestRFIDMsg.class,
       responseType = grpc.project.Service01.ResponseAccess.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<grpc.project.Service01.RequestRFIDMsg,
       grpc.project.Service01.ResponseAccess> getRequestRFIDMethod() {
     io.grpc.MethodDescriptor<grpc.project.Service01.RequestRFIDMsg, grpc.project.Service01.ResponseAccess> getRequestRFIDMethod;
@@ -43,7 +43,7 @@ public final class SecurityRequestServiceGrpc {
         if ((getRequestRFIDMethod = SecurityRequestServiceGrpc.getRequestRFIDMethod) == null) {
           SecurityRequestServiceGrpc.getRequestRFIDMethod = getRequestRFIDMethod = 
               io.grpc.MethodDescriptor.<grpc.project.Service01.RequestRFIDMsg, grpc.project.Service01.ResponseAccess>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "Service01.SecurityRequestService", "RequestRFID"))
               .setSampledToLocalTracing(true)
@@ -155,9 +155,9 @@ public final class SecurityRequestServiceGrpc {
      * Method 1: RFID Request with Unary Streaming
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<grpc.project.Service01.RequestRFIDMsg> requestRFID(
+    public void requestRFID(grpc.project.Service01.RequestRFIDMsg request,
         io.grpc.stub.StreamObserver<grpc.project.Service01.ResponseAccess> responseObserver) {
-      return asyncUnimplementedStreamingCall(getRequestRFIDMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getRequestRFIDMethod(), responseObserver);
     }
 
     /**
@@ -184,7 +184,7 @@ public final class SecurityRequestServiceGrpc {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getRequestRFIDMethod(),
-            asyncClientStreamingCall(
+            asyncUnaryCall(
               new MethodHandlers<
                 grpc.project.Service01.RequestRFIDMsg,
                 grpc.project.Service01.ResponseAccess>(
@@ -230,10 +230,10 @@ public final class SecurityRequestServiceGrpc {
      * Method 1: RFID Request with Unary Streaming
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<grpc.project.Service01.RequestRFIDMsg> requestRFID(
+    public void requestRFID(grpc.project.Service01.RequestRFIDMsg request,
         io.grpc.stub.StreamObserver<grpc.project.Service01.ResponseAccess> responseObserver) {
-      return asyncClientStreamingCall(
-          getChannel().newCall(getRequestRFIDMethod(), getCallOptions()), responseObserver);
+      asyncUnaryCall(
+          getChannel().newCall(getRequestRFIDMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -279,6 +279,16 @@ public final class SecurityRequestServiceGrpc {
 
     /**
      * <pre>
+     * Method 1: RFID Request with Unary Streaming
+     * </pre>
+     */
+    public grpc.project.Service01.ResponseAccess requestRFID(grpc.project.Service01.RequestRFIDMsg request) {
+      return blockingUnaryCall(
+          getChannel(), getRequestRFIDMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * Method 3: Request Security Profile with Unary Streaming
      * </pre>
      */
@@ -308,6 +318,17 @@ public final class SecurityRequestServiceGrpc {
 
     /**
      * <pre>
+     * Method 1: RFID Request with Unary Streaming
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<grpc.project.Service01.ResponseAccess> requestRFID(
+        grpc.project.Service01.RequestRFIDMsg request) {
+      return futureUnaryCall(
+          getChannel().newCall(getRequestRFIDMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Method 3: Request Security Profile with Unary Streaming
      * </pre>
      */
@@ -318,8 +339,8 @@ public final class SecurityRequestServiceGrpc {
     }
   }
 
-  private static final int METHODID_REQUEST_SECURITY_PROFILE = 0;
-  private static final int METHODID_REQUEST_RFID = 1;
+  private static final int METHODID_REQUEST_RFID = 0;
+  private static final int METHODID_REQUEST_SECURITY_PROFILE = 1;
   private static final int METHODID_REQUEST_DOOR_ACCESS = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
@@ -339,6 +360,10 @@ public final class SecurityRequestServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_REQUEST_RFID:
+          serviceImpl.requestRFID((grpc.project.Service01.RequestRFIDMsg) request,
+              (io.grpc.stub.StreamObserver<grpc.project.Service01.ResponseAccess>) responseObserver);
+          break;
         case METHODID_REQUEST_SECURITY_PROFILE:
           serviceImpl.requestSecurityProfile((grpc.project.Service01.RequestSecProfile) request,
               (io.grpc.stub.StreamObserver<grpc.project.Service01.SecurityProfile>) responseObserver);
@@ -353,9 +378,6 @@ public final class SecurityRequestServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_REQUEST_RFID:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.requestRFID(
-              (io.grpc.stub.StreamObserver<grpc.project.Service01.ResponseAccess>) responseObserver);
         case METHODID_REQUEST_DOOR_ACCESS:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.requestDoorAccess(
               (io.grpc.stub.StreamObserver<grpc.project.Service01.ResponseAccess>) responseObserver);

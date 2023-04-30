@@ -8,7 +8,12 @@ public interface RequestSecProfileOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 userId = 1;</code>
+   * <code>string userId = 1;</code>
    */
-  int getUserId();
+  java.lang.String getUserId();
+  /**
+   * <code>string userId = 1;</code>
+   */
+  com.google.protobuf.ByteString
+      getUserIdBytes();
 }

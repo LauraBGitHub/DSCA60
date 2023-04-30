@@ -5,6 +5,7 @@ import java.time.*;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+import grpc.project.Service01.Service01Server;
 import grpc.project.Service02.AccessControlGrpc.AccessControlImplBase;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -14,8 +15,15 @@ import io.grpc.stub.StreamObserver;
 
 
 
+@SuppressWarnings("unused")
 public class Service02Server extends AccessControlImplBase{
 	
+	String userId; 
+	String securityLevel; 
+	boolean flag; 
+	boolean twoFactor; 
+	String employment; 
+	String date; 
 	private static final Logger logger = Logger.getLogger(Service02Server.class.getName());
 	
 	public static void main(String[] args  )throws IOException, InterruptedException { 
@@ -30,11 +38,11 @@ public class Service02Server extends AccessControlImplBase{
 	@Override
 	public void setSecurityProfile(SetSecurityProfileRequest request,StreamObserver<SetSecurityProfileResponse> responseObserver) {
 		
-		String userId = request.getUserId(); 
-		String securityLevel = request.getSecurityLevel(); 
-		boolean flag = request.getSecureFlag(); 
-		boolean twoFactor; 
-		String employment = request.getEmploymentType(); 
+		userId = request.getUserId(); 
+		securityLevel = request.getSecurityLevel(); 
+		flag = request.getSecureFlag(); 
+		
+		employment = request.getEmploymentType(); 
 		// put buisness logic here ^^ get user input 
 		if (flag == true) { 
 			twoFactor = true; 
@@ -47,7 +55,7 @@ public class Service02Server extends AccessControlImplBase{
 	
 		//here we create the object that stores the date and we convert it into a string 
 		LocalDate myObj = LocalDate.now(); 
-	    String date = myObj.toString(); 
+	    date = myObj.toString(); 
 		
 		//sends data stream  
 		responseObserver.onNext(response.setUserId(userId).build());

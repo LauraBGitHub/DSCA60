@@ -52,19 +52,19 @@ public final class Service01Impl {
       "FIDMsg\022\014\n\004code\030\001 \001(\t\"4\n\024RequestDoorAcces" +
       "sMsg\022\017\n\007door_id\030\001 \001(\t\022\013\n\003pin\030\002 \001(\t\")\n\016Re" +
       "sponseAccess\022\027\n\017access_response\030\001 \001(\t\"#\n" +
-      "\021RequestSecProfile\022\016\n\006userId\030\001 \001(\005\"\205\001\n\017S" +
+      "\021RequestSecProfile\022\016\n\006userId\030\001 \001(\t\"\205\001\n\017S" +
       "ecurityProfile\022\026\n\016security_level\030\001 \001(\t\022\023" +
       "\n\013secure_flag\030\002 \001(\010\022\027\n\017two_factor_auth\030\003" +
       " \001(\010\022\027\n\017employment_type\030\004 \001(\t\022\023\n\013access_" +
-      "date\030\005 \001(\t2\214\002\n\026SecurityRequestService\022G\n" +
+      "date\030\005 \001(\t2\212\002\n\026SecurityRequestService\022E\n" +
       "\013RequestRFID\022\031.Service01.RequestRFIDMsg\032" +
-      "\031.Service01.ResponseAccess\"\000(\001\022S\n\021Reques" +
-      "tDoorAccess\022\037.Service01.RequestDoorAcces" +
-      "sMsg\032\031.Service01.ResponseAccess\"\000(\001\022T\n\026R" +
-      "equestSecurityProfile\022\034.Service01.Reques" +
-      "tSecProfile\032\032.Service01.SecurityProfile\"" +
-      "\000B)\n\026grpc.project.Service01B\rService01Im" +
-      "plP\001b\006proto3"
+      "\031.Service01.ResponseAccess\"\000\022S\n\021RequestD" +
+      "oorAccess\022\037.Service01.RequestDoorAccessM" +
+      "sg\032\031.Service01.ResponseAccess\"\000(\001\022T\n\026Req" +
+      "uestSecurityProfile\022\034.Service01.RequestS" +
+      "ecProfile\032\032.Service01.SecurityProfile\"\000B" +
+      ")\n\026grpc.project.Service01B\rService01Impl" +
+      "P\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
