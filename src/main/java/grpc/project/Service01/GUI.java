@@ -25,7 +25,7 @@ public class GUI {
 	   asyncStub = SecurityRequestServiceGrpc.newStub(channel);
 	   rfid(); 
 	   doorAccess(); 
-	   getProfile(); 
+	   //getProfile(); 
 	   channel.shutdown(); 
    }
    
@@ -85,9 +85,10 @@ public class GUI {
 	   }; 
 	   StreamObserver<RequestDoorAccessMsg> requestObserver = asyncStub.requestDoorAccess(responseObserver);
 	   try { 
+		   
 		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setDoorId("D21").build());
 		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setPin("743031").build());
-		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setPin("743031").build());
+		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setPin("723031").build());
 		   System.out.println("SENDING MESSAGES");
 		   
 		   requestObserver.onCompleted();
