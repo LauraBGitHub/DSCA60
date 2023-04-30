@@ -103,7 +103,8 @@ public class Service01Server extends SecurityRequestServiceImplBase {
 
 			@Override
 			public void onError(Throwable t) {
-				//
+				System.err.println("Error processing request: " + t.getMessage());
+			    t.printStackTrace();
 			}
 
 			@Override

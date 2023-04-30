@@ -17,7 +17,7 @@ public class Service03Server extends IncidentResponseImplBase{
 		Service03Server server03 = new Service03Server(); 
 		int port  = 9091; 
 		Server server = ServerBuilder.forPort(port).addService(server03).build().start(); 
-		logger.info("Server started, listening on " + port);
+		logger.info("Server started, listening on " + port); 
 		server.awaitTermination();
 	}
 
@@ -45,18 +45,26 @@ public class Service03Server extends IncidentResponseImplBase{
 			@Override
 			public void onNext(SuggestIncidentRequest value) {
 				StringBuilder input1 = new StringBuilder();  
+				input1.append(value.getAccessFailConditionTrips());
+				String advice = "If user is blocked do manual inspection of account, Verify employment type and security level "; 
+				input1.append(advice); 
+				String key = "REF56"; 
+			
+				SuggestIncidentResponseMsg reply = SuggestIncidentResponseMsg.newBuilder()
+						.setResponse(input1.toString()).setKeyId(key).build();
+				responseObserver.onNext(reply);
 				
 			}
 
 			@Override
 			public void onError(Throwable t) {
-				// TODO Auto-generated method stub
-				
+				System.err.println("Error processing request: " + t.getMessage());
+			    t.printStackTrace();
 			}
 
 			@Override
 			public void onCompleted() {
-				// TODO Auto-generated method stub
+				responseObserver.onCompleted();
 				
 			}
 			
