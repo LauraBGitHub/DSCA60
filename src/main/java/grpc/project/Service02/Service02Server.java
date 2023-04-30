@@ -57,12 +57,16 @@ public class Service02Server extends AccessControlImplBase{
 		responseObserver.onCompleted(); 
 	}
 
+
 	@Override
-	public void verifyPreApproval(VerifyPreApprovalMsg request,
-			StreamObserver<VerifyPreApprovalResponse> responseObserver) {
+	public void verifyPreApproval(VerifyPreApprovalMsg request,StreamObserver<VerifyPreApprovalResponse> responseObserver) {
+		System.out.println("Verifying pre approval ... "); 
 		String userId = request.getUserId(); 
-		 
-		 
+		String result = "User Approved "; 
+		
+		VerifyPreApprovalResponse reply = VerifyPreApprovalResponse.newBuilder().setResult(result).build(); 
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted(); 
 		
 	}
 

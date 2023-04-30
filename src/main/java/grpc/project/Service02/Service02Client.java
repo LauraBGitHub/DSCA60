@@ -26,6 +26,7 @@ public class Service02Client {
 		//create the stubs
 		blockingStub = AccessControlGrpc.newBlockingStub(channel);
 		setProfile();
+		setApproval(); 
 		channel.shutdown();
 	 }
 	public static void setProfile() { 
@@ -55,6 +56,13 @@ public class Service02Client {
 			} catch (StatusRuntimeException e) {
 				e.printStackTrace();
 			}
+	}
+	
+	public static void setApproval() { 
+		VerifyPreApprovalMsg request = VerifyPreApprovalMsg.newBuilder().setUserId("E7678987").build(); 
+		String userID = "E7678987  : "; 
+		VerifyPreApprovalResponse response = blockingStub.verifyPreApproval(request); 
+		System.out.println(userID + response.getResult());
 	}
 
 }
