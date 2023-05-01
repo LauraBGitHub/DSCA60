@@ -8,25 +8,65 @@ import io.grpc.stub.StreamObserver;
 
 import java.util.Random;
 
+//GUI imports 
 import javax.swing.*;
+import java.awt.FlowLayout;
+import java.awt.event.*;
 
-import grpc.project.Service01.RequestRFIDMsg.Builder;
-import grpc.project.Service02.VerifyPreApprovalResponse;
-import grpc.project.Service01.SecurityRequestServiceGrpc;
+//import grpc.project.Service01.RequestRFIDMsg.Builder;
+//import grpc.project.Service02.VerifyPreApprovalResponse;
+//import grpc.project.Service01.SecurityRequestServiceGrpc;
 
 
 
 public class GUI {
    private static SecurityRequestServiceGrpc.SecurityRequestServiceBlockingStub blockingStub; 
    private static SecurityRequestServiceGrpc.SecurityRequestServiceStub asyncStub;
+   private static JFrame frame;
+	private static JButton rfidRequest;
+   private static JButton getProfile;
+   private static JButton codeRequest;
    public static void main (String args[]) throws InterruptedException { 
 	   ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080).usePlaintext().build();
 	   blockingStub = SecurityRequestServiceGrpc.newBlockingStub(channel); 
 	   asyncStub = SecurityRequestServiceGrpc.newStub(channel);
-	   rfid(); 
-	   doorAccess(); 
-	   //getProfile(); 
-	   channel.shutdown(); 
+	   //Using GUI - Java Swing 
+	   frame = new JFrame("Service01Client");
+	    rfidRequest = new JButton("RFID");
+	    getProfile = new JButton("Get Security Profile");
+	    codeRequest = new JButton("Door Access Code");
+	    rfidRequest.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            rfid();
+	        }
+	    });
+	    getProfile.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            getProfile();
+	        }
+	    });
+	    codeRequest.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            try {
+					doorAccess();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+	        }
+	    });
+
+	    // add the components to the frame and show it
+	    frame.setLayout(new FlowLayout());
+	    frame.add(rfidRequest);
+	    frame.add(getProfile);
+	    frame.add(codeRequest);
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.pack();
+	    frame.setVisible(true); 
    }
    
    public static void rfid() { 
