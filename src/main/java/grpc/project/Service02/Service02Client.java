@@ -59,7 +59,7 @@ public class Service02Client {
             }
         });
 
-        // add the components to the frame and show it
+        
         frame.setLayout(new FlowLayout());
         frame.add(setProfile);
         frame.add(setApproval);
@@ -85,7 +85,7 @@ public class Service02Client {
 	            .build(); 
 		
 			try {
-				// Iterating each message in response when calling remote split RPC method.
+				// Iterating each message in response when calling remote RPC method.
 				Iterator<SetSecurityProfileResponse> responces = blockingStub.setSecurityProfile(request);
 				
 				// Client keeps a check on the next message in stream.

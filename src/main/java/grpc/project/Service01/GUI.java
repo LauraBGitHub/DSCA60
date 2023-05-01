@@ -13,11 +13,6 @@ import javax.swing.*;
 import java.awt.FlowLayout;
 import java.awt.event.*;
 
-//import grpc.project.Service01.RequestRFIDMsg.Builder;
-//import grpc.project.Service02.VerifyPreApprovalResponse;
-//import grpc.project.Service01.SecurityRequestServiceGrpc;
-
-
 
 public class GUI {
    private static SecurityRequestServiceGrpc.SecurityRequestServiceBlockingStub blockingStub; 
