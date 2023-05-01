@@ -107,7 +107,8 @@ public class GUI {
 
 		@Override
 		public void onError(Throwable t) {
-			// TODO Auto-generated method stub
+			System.err.println("Error processing request: " + t.getMessage());
+		    t.printStackTrace();
 			
 		}
 
