@@ -70,13 +70,18 @@ public class Service02Client {
 	 }
 	public static void setProfile() { 
 		
-	
+		JFrame f;
+	    f = new JFrame();
+	    String user = JOptionPane.showInputDialog(f, "Enter UserName");
+	    String securityLevel = JOptionPane.showInputDialog(f, "Enter Security level ...");
+	    boolean flag = JOptionPane.showInputDialog(f, "Enter true to add secure flag") != null;
+	    String employment = JOptionPane.showInputDialog(f, "Enter Employment Type");
 		// First creating a request message. Here, the message contains a string in setVal
 		SetSecurityProfileRequest request = SetSecurityProfileRequest.newBuilder()
-	            .setUserId("E676353")
-	            .setSecurityLevel("Low Level")
-	            .setSecureFlag(false)
-	            .setEmploymentType("Fixed Term Employee")
+	            .setUserId(user)
+	            .setSecurityLevel(securityLevel)
+	            .setSecureFlag(flag)
+	            .setEmploymentType(employment)
 	            .build(); 
 		
 			try {
@@ -98,16 +103,22 @@ public class Service02Client {
 	}
 	
 	public static void setApproval() { 
-		VerifyPreApprovalMsg request = VerifyPreApprovalMsg.newBuilder().setUserId("E7678987").build(); 
-		String userID = "E7678987  : "; 
+		JFrame f;
+	    f = new JFrame();
+	    String user = JOptionPane.showInputDialog(f, "Enter UserName");
+		VerifyPreApprovalMsg request = VerifyPreApprovalMsg.newBuilder().setUserId(user).build(); 
+		
 		VerifyPreApprovalResponse response = blockingStub.verifyPreApproval(request); 
-		System.out.println(userID + response.getResult());
+		System.out.println(user + response.getResult());
 	}
 	public static void set2FA() { 
-		RequestTwoFAMsg request = RequestTwoFAMsg.newBuilder().setUserId("E2365651").build(); 
-		String userID = "E2365651  : "; 
+		JFrame f;
+	    f = new JFrame();
+	    String user = JOptionPane.showInputDialog(f, "Enter UserName");
+		RequestTwoFAMsg request = RequestTwoFAMsg.newBuilder().setUserId(user).build(); 
+		
 		RequestTwoFAResponse response = blockingStub.requestTwoFA(request); 
-		System.out.println(userID + response.getResult()); 
+		System.out.println(user + response.getResult()); 
 	}
 
 }

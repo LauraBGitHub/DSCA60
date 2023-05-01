@@ -67,9 +67,12 @@ public class Service03Client {
 		
 	 }
 	public static void blockAccess() {
+		JFrame f;
+	    f = new JFrame();
+	    String user = JOptionPane.showInputDialog(f, "Enter UserName");
+	    boolean flag = JOptionPane.showInputDialog(f, "Enter true to add secure flag") != null;
+		BlockAccessMessage request = BlockAccessMessage.newBuilder().setUserId(user).setSecureFlag(flag).build(); 
 		
-		BlockAccessMessage request = BlockAccessMessage.newBuilder().setUserId("E32323").setSecureFlag(false).build(); 
-		String user = "E32323 : "; 
 		BlockAccessResponseMessage response = blockingStub.blockAccess(request); 
 		System.out.println(user + response.getResult());
 	}

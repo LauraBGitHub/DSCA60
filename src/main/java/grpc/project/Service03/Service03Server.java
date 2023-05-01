@@ -28,10 +28,10 @@ public class Service03Server extends IncidentResponseImplBase{
 		String result; 
 		
 		if (flag == false) { 
-			result = "User access not blocked "; 
+			result = "  User access not blocked "; 
 		}
 		else { 
-			result = "User access blocked "; 
+			result = "  User access blocked "; 
 		}
 		BlockAccessResponseMessage response = BlockAccessResponseMessage.newBuilder().setResult(result).build(); 
 		responseObserver.onNext(response);
