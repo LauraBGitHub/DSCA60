@@ -72,7 +72,7 @@ public class Service02Server extends AccessControlImplBase{
 	public void verifyPreApproval(VerifyPreApprovalMsg request,StreamObserver<VerifyPreApprovalResponse> responseObserver) {
 		System.out.println("Verifying pre approval ... "); 
 		String userId = request.getUserId(); 
-		String result = "User Approved "; 
+		String result = "  User Approved "; 
 		
 		VerifyPreApprovalResponse reply = VerifyPreApprovalResponse.newBuilder().setResult(result).build(); 
 		responseObserver.onNext(reply);
@@ -84,7 +84,7 @@ public class Service02Server extends AccessControlImplBase{
 	public void requestTwoFA(RequestTwoFAMsg request, StreamObserver<RequestTwoFAResponse> responseObserver) {
 		System.out.println("Requesting TwoFactor Authentication ... "); 
 		String userId = request.getUserId(); 
-		String result = "2FA Requested "; 
+		String result = "   2FA Requested "; 
 		RequestTwoFAResponse reply = RequestTwoFAResponse.newBuilder().setResult(result).build(); 
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted(); 

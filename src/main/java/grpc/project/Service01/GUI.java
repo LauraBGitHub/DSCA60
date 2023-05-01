@@ -125,10 +125,12 @@ public class GUI {
 	   }; 
 	   StreamObserver<RequestDoorAccessMsg> requestObserver = asyncStub.requestDoorAccess(responseObserver);
 	   try { 
-		   
+		   JFrame f;
+	       f = new JFrame();
+	       String pin = JOptionPane.showInputDialog(f, "Enter pin (723031) ");
 		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setDoorId("D21").build());
-		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setPin("743031").build());
-		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setPin("723031").build());
+		   requestObserver.onNext(RequestDoorAccessMsg.newBuilder().setPin(pin).build());
+		   
 		   System.out.println("SENDING MESSAGES");
 		   
 		   requestObserver.onCompleted();
