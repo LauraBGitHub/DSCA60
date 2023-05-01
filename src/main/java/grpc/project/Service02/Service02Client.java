@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import java.util.Iterator;
 //GUI imports 
 import javax.swing.*;
-
 import java.awt.FlowLayout;
 import java.awt.event.*;
 
